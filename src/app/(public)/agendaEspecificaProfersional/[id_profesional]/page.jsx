@@ -379,36 +379,36 @@ export default function CalendarioMensualHoras() {
 
     /* ---------- UI ---------- */
     return (
-        <div className="min-h-screen bg-white px-4 py-10 sm:px-6 lg:px-8">
+        <div className="-mt-24 min-h-screen bg-[linear-gradient(180deg,#f7fbfa_0%,#eef7f4_100%)] px-4 py-10 pt-30 sm:-mt-20 sm:px-6 sm:pt-24 lg:px-8">
             <div className="mx-auto w-full max-w-3xl">
                 <header className="mb-6 flex flex-col items-center gap-2 text-center">
                     <div
-                        className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
+                        className="inline-flex items-center gap-2 rounded-full border border-[#cfe7df] bg-[#edf8f4] px-3 py-1 text-xs font-medium text-[#4f7a72]">
                         Agenda · Online
                     </div>
 
                     <h1
                         className={`text-3xl sm:text-4xl font-black tracking-widest `}
                     >
-                        <span className="bg-gradient-to-r from-slate-900 via-gray-800 to-slate-700 text-transparent bg-clip-text ">{nombreProfesional || "Cargando..."}</span>
+                        <span className="bg-gradient-to-r from-[#123f38] via-[#1a5f54] to-[#2b8a7a] text-transparent bg-clip-text ">{nombreProfesional || "Cargando..."}</span>
                         <span
-                            className="relative mt-1 block h-1 w-40 max-w-full rounded-full bg-gradient-to-r from-slate-400 via-slate-200 to-transparent"
+                            className="relative mt-1 block h-1 w-40 max-w-full rounded-full bg-gradient-to-r from-[#58b8a5] via-[#cfe7df] to-transparent"
                         />
                     </h1>
 
                 </header>
 
-                <div className="rounded-2xl border border-slate-200 bg-white/80 p-4 shadow-lg shadow-slate-900/5 backdrop-blur supports-[backdrop-filter]:bg-white/70 text-slate-800">
+                <div className="rounded-2xl border border-[#d7ebe5] bg-white/88 p-4 shadow-[0_22px_55px_-34px_rgba(19,84,73,0.22)] backdrop-blur supports-[backdrop-filter]:bg-white/78 text-slate-800">
                     <div className="flex items-center justify-between">
-                        <h2 className="text-sm font-semibold text-slate-800">Agenda mensual</h2>
-                        <span className="text-[12px] text-slate-500">Selecciona un día</span>
+                        <h2 className="text-sm font-semibold text-[#173f39]">Agenda mensual</h2>
+                        <span className="text-[12px] text-[#6b8b84]">Selecciona un día</span>
                     </div>
-                    <div className="mt-3 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent"/>
+                    <div className="mt-3 h-px w-full bg-gradient-to-r from-transparent via-[#d7ebe5] to-transparent"/>
 
                     {/* Navegación mes */}
                     <div className="mt-3 flex items-center justify-between">
                         <button
-                            className="rounded-lg border border-gray-900 bg-gray-900 px-2.5 py-1 text-xs font-semibold text-white shadow-md shadow-slate-900/5 hover:bg-gray-800 active:scale-[0.98] hover:shadow-lg hover:shadow-slate-900/10"
+                            className="rounded-lg border border-[#1f6d61] bg-[#1f6d61] px-2.5 py-1 text-xs font-semibold text-white shadow-md shadow-[#1f6d61]/20 hover:bg-[#18594f] active:scale-[0.98] hover:shadow-lg hover:shadow-[#1f6d61]/25"
                             onClick={() => {
                                 setMesActual(new Date(mesActual.setMonth(mesActual.getMonth() - 1)));
                                 setFechaSeleccionada(null);
@@ -420,11 +420,11 @@ export default function CalendarioMensualHoras() {
                         >
                             ←
                         </button>
-                        <strong className="capitalize text-sm font-semibold text-slate-800">
+                        <strong className="capitalize text-sm font-semibold text-[#173f39]">
                             {mesActual.toLocaleString("es-CL", {month: "long", year: "numeric"})}
                         </strong>
                         <button
-                            className="rounded-lg border border-gray-900 bg-gray-900 px-2.5 py-1 text-xs font-semibold text-white shadow-md shadow-slate-900/5 hover:bg-gray-800 active:scale-[0.98] hover:shadow-lg hover:shadow-slate-900/10"
+                            className="rounded-lg border border-[#1f6d61] bg-[#1f6d61] px-2.5 py-1 text-xs font-semibold text-white shadow-md shadow-[#1f6d61]/20 hover:bg-[#18594f] active:scale-[0.98] hover:shadow-lg hover:shadow-[#1f6d61]/25"
                             onClick={() => {
                                 setMesActual(new Date(mesActual.setMonth(mesActual.getMonth() + 1)));
                                 setFechaSeleccionada(null);
@@ -439,10 +439,10 @@ export default function CalendarioMensualHoras() {
                     </div>
 
                     {/* calendario */}
-                    <div className="mt-4 grid grid-cols-7 gap-2 rounded-xl bg-slate-900/[0.02] p-2 ring-1 ring-slate-900/5">
+                    <div className="mt-4 grid grid-cols-7 gap-2 rounded-xl bg-[#f3faf7] p-2 ring-1 ring-[#d7ebe5]">
                         {['D', 'L', 'M', 'M', 'J', 'V', 'S'].map((d, idx) => (
                             <strong key={`weekday-${idx}`}
-                                    className="text-center text-xs font-semibold text-slate-500">{d}</strong>
+                                    className="text-center text-xs font-semibold text-[#6c8f87]">{d}</strong>
                         ))}
 
                         {dias.map((dia, i) =>
@@ -466,12 +466,12 @@ export default function CalendarioMensualHoras() {
                                             seleccionarFecha(dia);
                                         }}
                                         className={
-                                            "h-10 flex items-center justify-center rounded-md text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-1 " +
+                                            "h-10 flex items-center justify-center rounded-md text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-[#9fd4c8] focus:ring-offset-1 " +
                                             (isDisabled
-                                                ? "cursor-not-allowed border border-slate-200/70 bg-white/60 text-slate-400 shadow-sm" + (isSunday ? " opacity-50" : "")
+                                                ? "cursor-not-allowed border border-[#dfece8] bg-white/70 text-slate-400 shadow-sm" + (isSunday ? " opacity-50" : "")
                                                 : isSelected
-                                                    ? "border border-gray-900 bg-gray-900 text-white shadow-md shadow-gray-900/10"
-                                                    : "border border-slate-200 bg-white/90 text-slate-700 shadow-sm hover:bg-white hover:border-gray-400 hover:shadow-md hover:shadow-slate-900/5")
+                                                    ? "border border-[#1f6d61] bg-[#1f6d61] text-white shadow-md shadow-[#1f6d61]/20"
+                                                    : "border border-[#d7ebe5] bg-white/90 text-[#31544e] shadow-sm hover:bg-white hover:border-[#7db8ac] hover:shadow-md hover:shadow-[#1f6d61]/10")
                                         }
                                     >
                                         {dia.getDate()}
@@ -487,14 +487,14 @@ export default function CalendarioMensualHoras() {
                     {fechaSeleccionada && (
                         <div className="mt-5">
                             <div className="flex items-center justify-between">
-                                <h3 className="text-sm font-semibold text-slate-800">
+                                <h3 className="text-sm font-semibold text-[#173f39]">
                                     Agenda (09:00–22:00)
                                 </h3>
                                 <div className="flex items-center gap-3">
-                                    <p className="text-xs text-slate-500">Bloques de 60 min</p>
+                                    <p className="text-xs text-[#6b8b84]">Bloques de 60 min</p>
                                     {checkingBlocked && (
-                                        <div className="flex items-center gap-2 text-xs text-slate-500">
-                                            <svg className="w-3 h-3 animate-spin text-slate-500"
+                                        <div className="flex items-center gap-2 text-xs text-[#6b8b84]">
+                                            <svg className="w-3 h-3 animate-spin text-[#4f7a72]"
                                                  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                                 <circle className="opacity-25" cx="12" cy="12" r="10"
                                                         stroke="currentColor" strokeWidth="4"></circle>
@@ -507,7 +507,7 @@ export default function CalendarioMensualHoras() {
                                 </div>
                             </div>
 
-                            <div className="mt-3 space-y-2 max-h-96 overflow-y-auto pr-1 rounded-xl bg-slate-900/[0.02] p-2 ring-1 ring-slate-900/5">
+                            <div className="mt-3 max-h-96 space-y-2 overflow-y-auto rounded-xl bg-[#f3faf7] p-2 pr-1 ring-1 ring-[#d7ebe5]">
                                 {attentionSlots
                                     .filter((entry) => {
                                         const isBlocked = blockedHours.has(entry.start);
@@ -537,15 +537,15 @@ export default function CalendarioMensualHoras() {
 
                                         return (
                                             <div key={entry.start}
-                                                 className={"flex items-center justify-between rounded-xl border p-3 shadow-sm hover:shadow-md hover:shadow-slate-900/5 transition " + (selected ? "bg-green-50 border-green-300" : "bg-white/90 border-slate-200")}>
+                                                 className={"flex items-center justify-between rounded-xl border p-3 shadow-sm transition hover:shadow-md hover:shadow-[#1f6d61]/10 " + (selected ? "border-[#9dd3c7] bg-[#ebf8f4]" : "border-[#d7ebe5] bg-white/90")}>
                                                 <div>
-                                                    <div className="text-sm font-medium text-slate-800">Atención</div>
-                                                    <div className="text-xs text-slate-500">{entry.start} – {entry.end}</div>
+                                                    <div className="text-sm font-medium text-[#173f39]">Atención</div>
+                                                    <div className="text-xs text-[#6b8b84]">{entry.start} – {entry.end}</div>
                                                 </div>
                                                 <div className="flex items-center gap-3">
                                                     <button
                                                         onClick={() => seleccionarInicio(entry.start)}
-                                                        className={"px-3 py-1 rounded-lg font-semibold shadow-sm transition active:scale-[0.98] " + (selected ? 'bg-green-600 text-white shadow-md' : 'bg-gray-900 text-white hover:bg-gray-800 hover:shadow-md hover:shadow-slate-900/5')}
+                                                        className={"rounded-lg px-3 py-1 font-semibold shadow-sm transition active:scale-[0.98] " + (selected ? 'bg-[#2f9a86] text-white shadow-md shadow-[#2f9a86]/20' : 'bg-[#1f6d61] text-white hover:bg-[#18594f] hover:shadow-md hover:shadow-[#1f6d61]/20')}
                                                     >
                                                         {selected ? 'Seleccionada' : 'Seleccionar'}
                                                     </button>
@@ -596,10 +596,7 @@ export default function CalendarioMensualHoras() {
                 </div>
 
                 <footer className="mt-10 text-center text-xs text-slate-600">
-                    <p>
-                        Odontología clínica integral con atención personalizada para cada paciente.
-                    </p>
-                    <p className="mt-2 text-[11px] text-slate-400">
+                    <p className="mt-2 text-[11px] text-[#86a49d]">
                         Horarios: Lun-Sáb 9:00-22:00 | Dom Cerrado
                     </p>
                 </footer>

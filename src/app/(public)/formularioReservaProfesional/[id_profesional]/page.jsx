@@ -400,7 +400,7 @@ export default function FormularioReservaProfesional() {
                             <ShadcnButton2 nombre={"RETROCEDER"} funcion={()=>volver(id_profesional)}/>
 
                         <ShadcnButton2
-                            nombre={procesandoPago ? "REDIRIGIENDO A PAGO..." : "PAGAR CON MERCADO PAGO"}
+                            nombre={procesandoPago ? "FINALIZANDO AGENDAMIENTO..." : "FINALIZAR AGENDAMIENTO"}
                             funcion={(e) => {
                                 if (e?.preventDefault) e.preventDefault();
                                 if (e?.stopPropagation) e.stopPropagation();
