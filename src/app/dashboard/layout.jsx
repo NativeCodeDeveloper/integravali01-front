@@ -216,7 +216,9 @@ export default function DashboardLayout({ children }) {
 
 
 
-                            {/* — Gestión de Contenido — */}
+                            {/* — Gestión de Contenido —
+
+
                             <details className="group">
                                 <summary className="flex items-center justify-between px-2 py-1.5 text-[9px] font-medium text-white/35 hover:text-white/55 transition-colors duration-200 cursor-pointer list-none select-none tracking-[0.08em] uppercase">
                                     <span className="flex items-center gap-2">
@@ -253,6 +255,9 @@ export default function DashboardLayout({ children }) {
                                     </Link>
                                 </div>
                             </details>
+
+
+                            */}
 
                             {/* — Configuraciones — */}
                             <details className="group">
