@@ -738,9 +738,10 @@ export default function Calendario() {
 
     async function actualizarInformacionReserva(nombrePaciente, apellidoPaciente, rut, telefono, email, fechaInicio, horaInicio, fechaFinalizacion, horaFinalizacion, estadoReserva, id_profesional, id_reserva) {
         try {
+            const correoNormalizado = (email ?? "").trim() || null;
 
-            if (!nombrePaciente || !apellidoPaciente || !rut || !telefono || !email || !fechaInicio || !horaInicio || !fechaFinalizacion || !horaFinalizacion || !estadoReserva || !id_profesional || !id_reserva) {
-                toast.error("Debe llenar todos los campos para poder actualizar la reserva");
+            if (!nombrePaciente || !apellidoPaciente || !rut || !telefono || !fechaInicio || !horaInicio || !fechaFinalizacion || !horaFinalizacion || !estadoReserva || !id_profesional || !id_reserva) {
+                toast.error("Debe completar los datos requeridos para actualizar la reserva");
                 return false;
             }
 
@@ -753,7 +754,7 @@ export default function Calendario() {
                     apellidoPaciente,
                     rut,
                     telefono,
-                    email,
+                    email: correoNormalizado,
                     fechaInicio,
                     horaInicio,
                     fechaFinalizacion,

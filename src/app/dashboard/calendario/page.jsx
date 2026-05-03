@@ -1182,7 +1182,7 @@ function CalendarioContent() {
     async function actualizarInformacionReserva(nombrePaciente, apellidoPaciente, rut, telefono, email, fechaInicio, horaInicio, fechaFinalizacion, horaFinalizacion, estadoReserva, id_profesional, id_reserva) {
         try {
             if (!nombrePaciente || !apellidoPaciente || !rut || !telefono || !fechaInicio || !horaInicio || !fechaFinalizacion || !horaFinalizacion || !estadoReserva || !id_profesional || !id_reserva) {
-                toast.error("Debe llenar todos los campos para poder actualizar la reserva");
+                toast.error("Debe completar los datos requeridos para actualizar la reserva");
                 return false;
             }
             const correoNormalizado = normalizarCorreoOpcional(email);
