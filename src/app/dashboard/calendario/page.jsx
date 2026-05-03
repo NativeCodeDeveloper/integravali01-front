@@ -381,17 +381,6 @@ function CalendarioContent() {
         return format(date, "EEEE d 'de' MMMM", {locale: es});
     }
 
-    if (!clienteMontado) {
-        return (
-            <div className="min-h-screen bg-[#f6f8fb]">
-                <ToasterClient/>
-                <div className="grid min-h-screen place-items-center px-4">
-                    <span className="text-sm text-slate-400">Cargando calendario...</span>
-                </div>
-            </div>
-        );
-    }
-
     function obtenerTituloReserva(cita) {
         const nombre = (cita?.nombrePaciente ?? "").trim();
         const apellido = (cita?.apellidoPaciente ?? "").trim();
@@ -1365,6 +1354,17 @@ function CalendarioContent() {
             console.log(error);
             return toast.error("No hay conexion con el servidor por favor contacte a Soporte");
         }
+    }
+
+    if (!clienteMontado) {
+        return (
+            <div className="min-h-screen bg-[#f6f8fb]">
+                <ToasterClient/>
+                <div className="grid min-h-screen place-items-center px-4">
+                    <span className="text-sm text-slate-400">Cargando calendario...</span>
+                </div>
+            </div>
+        );
     }
 
     return (

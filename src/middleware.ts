@@ -1,5 +1,4 @@
 
-
 /*
 
 // frontend/src/middleware.ts
@@ -17,9 +16,10 @@ matcher: ['/dashboard/:path*'], // o simplemente [] si quieres que no aplique a 
 
 
 
-
-
 */
+
+
+
 
 
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
@@ -68,4 +68,6 @@ export default clerkMiddleware(async (auth, req) => {
 export const config = {
   matcher: ['/dashboard/:path*', '/sign-in/:path*'],
 }
+
+
 
