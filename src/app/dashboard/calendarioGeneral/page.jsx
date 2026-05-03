@@ -183,6 +183,7 @@ export default function Calendario() {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [currentView, setCurrentView] = useState("month");
     const [esMobile, setEsMobile] = useState(false);
+    const [clienteMontado, setClienteMontado] = useState(false);
 
 
     const [nombrePaciente, setNombrePaciente] = useState("");
@@ -202,6 +203,10 @@ export default function Calendario() {
     const [backgroundCalendarEvents, setBackgroundCalendarEvents] = useState([]);
     const [listaProfesionales, setListaProfesionales] = useState([]);
     const [id_profesional, setId_profesional] = useState("");
+
+    useEffect(() => {
+        setClienteMontado(true);
+    }, []);
 
     useEffect(() => {
         function actualizarModoMobile() {
@@ -646,7 +651,7 @@ export default function Calendario() {
                     textOverflow: 'clip',
                     lineHeight: esVistaMes ? '1' : '1.3',
                     padding: esVistaMes ? '2px 4px' : '6px 8px',
-                    fontSize: esVistaMes ? '0.45rem' : '0.32rem',
+                    fontSize: esVistaMes ? '0.9rem' : '0.8rem',
                     boxSizing: 'border-box',
                     borderRadius: '0px',
                     backgroundColor: 'rgba(107, 114, 128, 0.28)',
@@ -672,7 +677,7 @@ export default function Calendario() {
                 textOverflow: 'ellipsis',
                 lineHeight: '1',
                 padding: esVistaMes ? '2px 4px' : '0',
-                fontSize: esVistaMes ? '0.45rem' : '0.32rem',
+                fontSize: esVistaMes ? '0.95rem' : '0.85rem',
                 boxSizing: 'border-box',
                 borderRadius: '0px',
                 backgroundColor: paletteReserva.backgroundColor,
@@ -707,7 +712,7 @@ export default function Calendario() {
     const EventComponent = ({event}) => (
         <div
             title={obtenerTooltipEvento(event)}
-            className="truncate text-[9px] leading-none w-full h-full flex items-center gap-1 px-[2px]"
+            className="truncate text-sm md:text-base leading-tight font-semibold w-full h-full flex items-center gap-1 px-1"
             style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}
         >
             {event.tipo === "bloqueo" && (
@@ -720,7 +725,7 @@ export default function Calendario() {
     );
 
     const TitleOnlyEvent = ({event}) => (
-        <div title={obtenerTooltipEvento(event)} className="truncate text-[9px] leading-none font-medium w-full flex items-center gap-1" style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
+        <div title={obtenerTooltipEvento(event)} className="truncate text-sm md:text-base leading-tight font-semibold w-full flex items-center gap-1 px-1" style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
             {event.tipo === "bloqueo" && (
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -1010,6 +1015,17 @@ export default function Calendario() {
 
     function formatFechaLarga(date) {
         return format(date, "EEEE d 'de' MMMM", {locale: es});
+    }
+
+    if (!clienteMontado) {
+        return (
+            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-sky-50/30">
+                <ToasterClient/>
+                <div className="mx-auto flex min-h-screen max-w-7xl items-center justify-center px-4">
+                    <div className="text-sm text-slate-400">Cargando calendario...</div>
+                </div>
+            </div>
+        );
     }
 
     return (
