@@ -153,23 +153,23 @@ function CalendarioContent() {
             .rbc-month-view .rbc-event {
                 min-height: 0 !important; height: auto !important; padding: 2px 3px !important;
                 line-height: 1.1 !important; white-space: normal !important; overflow: visible !important; word-break: break-word !important;
-                font-size: 55% !important;
+                font-size: 82.5% !important;
             }
             .rbc-time-view .rbc-event {
                 min-height: 0 !important; padding: 1px 2px !important;
                 line-height: 1.1 !important; white-space: normal !important; overflow: hidden !important; word-break: break-word !important;
-                font-size: 48% !important;
+                font-size: 72% !important;
             }
             .rbc-month-view .rbc-day-slot { min-height: 80px !important; }
             .rbc-row-segment { z-index: 1 !important; }
-            .rbc-event-label, .rbc-event-content { white-space: normal !important; overflow: visible !important; word-break: break-word !important; font-size: 40% !important; }
+            .rbc-event-label, .rbc-event-content { white-space: normal !important; overflow: visible !important; word-break: break-word !important; font-size: 60% !important; }
             .rbc-time-view .rbc-event-label,
-            .rbc-time-view .rbc-event-content { font-size: 48% !important; }
+            .rbc-time-view .rbc-event-content { font-size: 72% !important; }
             .rbc-event-label { display: none !important; }
             @media (min-width: 768px) {
                 .rbc-month-view .rbc-event-label,
                 .rbc-month-view .rbc-event-content {
-                    font-size: 55% !important;
+                    font-size: 82.5% !important;
                 }
             }
             @media (max-width: 767px) {
