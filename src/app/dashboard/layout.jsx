@@ -17,6 +17,7 @@ function getRoleFromSessionClaims(sessionClaims) {
     return (
         sessionClaims?.metadata?.role ??
         sessionClaims?.publicMetadata?.role ??
+        sessionClaims?.public_metadata?.role ??
         sessionClaims?.role
     );
 }

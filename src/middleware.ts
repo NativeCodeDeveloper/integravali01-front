@@ -55,10 +55,16 @@ function getRoleFromSessionClaims(sessionClaims: unknown) {
   const claims = (sessionClaims ?? {}) as {
     metadata?: { role?: string }
     publicMetadata?: { role?: string }
+    public_metadata?: { role?: string }
     role?: string
   }
 
-  return claims.metadata?.role ?? claims.publicMetadata?.role ?? claims.role
+  return (
+    claims.metadata?.role ??
+    claims.publicMetadata?.role ??
+    claims.public_metadata?.role ??
+    claims.role
+  )
 }
 
 // Handler de Clerk separado para poder envolverlo en try-catch
@@ -121,4 +127,3 @@ export const config = {
     '/(api|trpc)(.*)',
   ],
 }
-
