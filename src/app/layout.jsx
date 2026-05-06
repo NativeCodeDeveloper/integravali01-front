@@ -15,29 +15,29 @@ const plusJakarta = Plus_Jakarta_Sans({
   weight: ["500", "600", "700", "800"],
 });
 
-export const metadataBase = new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://www.saludb.cl");
+export const metadataBase = new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://www.integravali.cl");
 
 export const metadata = {
   title: {
-    default: "SaludB | Salud Integral a Domicilio",
-    template: "%s | SaludB",
+    default: "IntegraVali | Centro de Terapias Integrales",
+    template: "%s | IntegraVali",
   },
   description:
-    "SaludB entrega atencion integral a domicilio en la Region Metropolitana con equipo interdisciplinario y coordinacion clinica continua.",
+    "IntegraVali es un centro de terapias integrales con un equipo interdisciplinario comprometido con el bienestar y la calidad de vida de cada persona.",
   keywords: [
-    "SaludB",
-    "salud a domicilio",
-    "atencion domiciliaria",
+    "IntegraVali",
+    "centro de terapias",
+    "terapias integrales",
     "kinesiologia",
     "terapia ocupacional",
     "fonoaudiologia",
-    "medicina general",
-    "geriatria",
-    "enfermeria",
-    "Region Metropolitana",
+    "psicologia",
+    "nutricion",
+    "bienestar",
+    "salud integral",
   ],
-  authors: [{ name: "SaludB", url: metadataBase.href }],
-  publisher: "SaludB",
+  authors: [{ name: "IntegraVali", url: metadataBase.href }],
+  publisher: "IntegraVali",
   robots: {
     index: true,
     follow: true,
@@ -48,24 +48,19 @@ export const metadata = {
   alternates: {
     canonical: metadataBase.href,
   },
-  icons: {
-    icon: "/logo_transparent.png",
-    shortcut: "/logo_transparent.png",
-    apple: "/logo_transparent.png",
-  },
   openGraph: {
-    title: "SaludB | Salud Integral a Domicilio",
+    title: "IntegraVali | Centro de Terapias Integrales",
     description:
-      "Atencion personalizada y coordinada a domicilio para mejorar la funcionalidad y calidad de vida de cada paciente.",
+      "Atencion personalizada e integral para mejorar el bienestar y la calidad de vida de cada persona.",
     url: metadataBase.href,
-    siteName: "SaludB",
+    siteName: "IntegraVali",
     locale: "es_CL",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "SaludB",
-    description: "Red de atencion domiciliaria integral en la Region Metropolitana.",
+    title: "IntegraVali",
+    description: "Centro de terapias integrales con equipo interdisciplinario.",
   },
 };
 
