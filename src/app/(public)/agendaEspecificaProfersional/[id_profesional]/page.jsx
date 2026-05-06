@@ -226,6 +226,8 @@ export default function CalendarioMensualHoras() {
                     console.error('Error revalidando vecinos:', err);
                 }
             })();
+
+            formularioReservaProfesional(id_profesional);
         }
     };
 
@@ -589,10 +591,6 @@ export default function CalendarioMensualHoras() {
                     <Link href={"/agendaProfesionales"}>
                         <ShadcnButton2 nombre={"RETROCEDER"}/>
                     </Link>
-
-
-                        <ShadcnButton2 nombre={"SIGUIENTE"} funcion={()=>formularioReservaProfesional(id_profesional)}/>
-
                 </div>
 
                 <footer className="mt-10 text-center text-xs text-slate-600">
