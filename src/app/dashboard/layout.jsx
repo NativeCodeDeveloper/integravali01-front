@@ -1,10 +1,10 @@
 // app/dashboard/layout.jsx
-import { auth } from "@clerk/nextjs/server";
 import { ClerkProvider } from "@clerk/nextjs";
 import Link from "next/link";
 import { Michroma } from "next/font/google";
 import MobileNav from "./MobileNav";
 import SignOutBtn from "./SignOutBtn";
+import { getDashboardRole } from "@/lib/getDashboardRole";
 
 const michroma = Michroma({ weight: "400", subsets: ["latin"], display: "swap" });
 
@@ -13,18 +13,8 @@ export const metadata = {
     description: "Panel de administración",
 };
 
-function getRoleFromSessionClaims(sessionClaims) {
-    return (
-        sessionClaims?.metadata?.role ??
-        sessionClaims?.publicMetadata?.role ??
-        sessionClaims?.public_metadata?.role ??
-        sessionClaims?.role
-    );
-}
-
 export default async function DashboardLayout({ children }) {
-    const { sessionClaims } = await auth();
-    const role = getRoleFromSessionClaims(sessionClaims);
+    const role = await getDashboardRole();
     const canViewConfiguraciones = role !== "basico";
 
     return (
