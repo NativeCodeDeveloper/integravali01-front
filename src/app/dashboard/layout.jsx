@@ -13,9 +13,17 @@ export const metadata = {
     description: "Panel de administración",
 };
 
+function getRoleFromSessionClaims(sessionClaims) {
+    return (
+        sessionClaims?.metadata?.role ??
+        sessionClaims?.publicMetadata?.role ??
+        sessionClaims?.role
+    );
+}
+
 export default async function DashboardLayout({ children }) {
     const { sessionClaims } = await auth();
-    const role = sessionClaims?.metadata?.role;
+    const role = getRoleFromSessionClaims(sessionClaims);
     const canViewConfiguraciones = role !== "basico";
 
     return (

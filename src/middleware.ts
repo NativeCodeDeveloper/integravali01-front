@@ -51,6 +51,16 @@ const isBasicoRestricted = createRouteMatcher([
   '/dashboard/fichaCampo/(.*)',
 ])
 
+function getRoleFromSessionClaims(sessionClaims: unknown) {
+  const claims = (sessionClaims ?? {}) as {
+    metadata?: { role?: string }
+    publicMetadata?: { role?: string }
+    role?: string
+  }
+
+  return claims.metadata?.role ?? claims.publicMetadata?.role ?? claims.role
+}
+
 // Handler de Clerk separado para poder envolverlo en try-catch
 const clerkHandler = clerkMiddleware(async (auth, req) => {
   try {
@@ -67,7 +77,7 @@ const clerkHandler = clerkMiddleware(async (auth, req) => {
     }
 
     // Leer rol desde publicMetadata (configurado en Clerk Dashboard)
-    const role = (sessionClaims?.metadata as { role?: string } | undefined)?.role
+    const role = getRoleFromSessionClaims(sessionClaims)
 
     // Recepcionista → solo accede a inicio + calendario, el resto → no-access
     if (role === 'recepcionista' && !isRecepcionistaAllowed(req)) {
@@ -111,5 +121,4 @@ export const config = {
     '/(api|trpc)(.*)',
   ],
 }
-
 
