@@ -42,6 +42,15 @@ const isRecepcionistaAllowed = createRouteMatcher([
   '/dashboard/paciente/(.*)',
 ])
 
+const isBasicoRestricted = createRouteMatcher([
+  '/dashboard/profesionales',
+  '/dashboard/serviciosAgendamiento',
+  '/dashboard/tarifaServicio',
+  '/dashboard/fichasClinicasPlantillas',
+  '/dashboard/fichasClinicasCategorias/(.*)',
+  '/dashboard/fichaCampo/(.*)',
+])
+
 // Handler de Clerk separado para poder envolverlo en try-catch
 const clerkHandler = clerkMiddleware(async (auth, req) => {
   try {
@@ -62,6 +71,11 @@ const clerkHandler = clerkMiddleware(async (auth, req) => {
 
     // Recepcionista → solo accede a inicio + calendario, el resto → no-access
     if (role === 'recepcionista' && !isRecepcionistaAllowed(req)) {
+      return NextResponse.redirect(new URL('/dashboard/no-access', req.url))
+    }
+
+    // Basico → sin acceso a configuraciones
+    if (role === 'basico' && isBasicoRestricted(req)) {
       return NextResponse.redirect(new URL('/dashboard/no-access', req.url))
     }
 
@@ -97,6 +111,5 @@ export const config = {
     '/(api|trpc)(.*)',
   ],
 }
-
 
 
