@@ -216,7 +216,7 @@ function CalendarioContent() {
         const apellido = searchParams.get("apellido");
         if (apellido) setApellidoPaciente(apellido);
         const rutParam = searchParams.get("rut");
-        if (rutParam) setRut(rutParam);
+        if (rutParam) setRut(limpiarRutInput(rutParam));
         const tel = searchParams.get("telefono");
         if (tel) setTelefono(tel);
         const correo = searchParams.get("email");
@@ -330,6 +330,10 @@ function CalendarioContent() {
 
     function normalizarRut(valor = "") {
         return String(valor).replace(/[^a-zA-Z0-9]/g, "").toUpperCase();
+    }
+
+    function limpiarRutInput(valor = "") {
+        return String(valor).replace(/[^0-9kK]/g, "").slice(0, 9);
     }
 
     function esFechaVigente(start) {
@@ -1516,9 +1520,10 @@ function CalendarioContent() {
                                     <label className="mb-1 block text-sm font-medium text-slate-700">RUT</label>
                                     <ShadcnInput
                                         value={rut}
-                                        onChange={(e) => { const value = e.target.value.replace(/[^a-zA-Z0-9]/g, ""); setRut(value); }}
+                                        onChange={(e) => setRut(limpiarRutInput(e.target.value))}
                                         placeholder="12345678K"
                                         className="h-11 w-full rounded-xl border-slate-200 bg-white"
+                                        maxLength={9}
                                     />
                                 </div>
                                 <div>
@@ -1985,9 +1990,10 @@ function CalendarioContent() {
                                         <label className="text-[11px] text-slate-500">RUT</label>
                                         <input
                                             value={popupForm.rut}
-                                            onChange={(e) => setPopupForm((prev) => ({...prev, rut: e.target.value.replace(/[^a-zA-Z0-9]/g, "")}))}
+                                            onChange={(e) => setPopupForm((prev) => ({...prev, rut: limpiarRutInput(e.target.value)}))}
                                             className="h-9 w-full rounded-xl border border-slate-200 bg-white px-3 text-[12px] text-slate-800 outline-none transition-all focus:border-violet-300 focus:ring-4 focus:ring-violet-100"
                                             placeholder="12345678K"
+                                            maxLength={9}
                                         />
                                     </div>
                                     <div className="space-y-1">

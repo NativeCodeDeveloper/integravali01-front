@@ -95,6 +95,60 @@ export default function FormularioReservaProfesional() {
         return String(valor).replace(/[^0-9kK]/g, "").toUpperCase();
     }
 
+    function limpiarRutInput(valor = "") {
+        return normalizarRut(valor).slice(0, 9);
+    }
+
+    function calcularDigitoVerificadorRut(cuerpoRut = "") {
+        let suma = 0;
+        let multiplicador = 2;
+
+        for (let index = cuerpoRut.length - 1; index >= 0; index -= 1) {
+            suma += Number(cuerpoRut[index]) * multiplicador;
+            multiplicador = multiplicador === 7 ? 2 : multiplicador + 1;
+        }
+
+        const resto = 11 - (suma % 11);
+
+        if (resto === 11) return "0";
+        if (resto === 10) return "K";
+
+        return String(resto);
+    }
+
+    function esRutValido(valor = "") {
+        const rutLimpio = limpiarRutInput(valor);
+
+        if (!/^\d{7,8}[0-9K]$/.test(rutLimpio)) {
+            return false;
+        }
+
+        const cuerpoRut = rutLimpio.slice(0, -1);
+        const digitoVerificador = rutLimpio.slice(-1);
+
+        return calcularDigitoVerificadorRut(cuerpoRut) === digitoVerificador;
+    }
+
+    function obtenerRutNormalizadoValido(valor = "", mostrarToast = true) {
+        const rutLimpio = limpiarRutInput(valor);
+
+        if (!rutLimpio) {
+            if (mostrarToast) {
+                toast.error("Debe ingresar el RUT del paciente sin puntos ni guion.");
+            }
+            return null;
+        }
+
+        if (!esRutValido(rutLimpio)) {
+            if (mostrarToast) {
+                toast.error("Debe ingresar un RUT valido, sin puntos ni guion.");
+            }
+            return null;
+        }
+
+        return rutLimpio;
+    }
+
     function crearFechaReserva(fecha, hora) {
         return new Date(`${fecha}T${hora}`);
     }
@@ -104,9 +158,13 @@ export default function FormularioReservaProfesional() {
             const nombre = (nombrePaciente ?? "").trim();
             const apellido = (apellidoPaciente ?? "").trim();
             const rutPaciente = (rut ?? "").trim();
-            const rutNormalizado = normalizarRut(rutPaciente);
+            const rutNormalizado = obtenerRutNormalizadoValido(rutPaciente);
             const telefonoPaciente = (telefono ?? "").trim();
             const correoPaciente = (email ?? "").trim();
+
+            if (!rutNormalizado) {
+                return false;
+            }
 
             if (!nombre || !apellido || !rutNormalizado || !telefonoPaciente) {
                 toast.error("Debe completar nombre, apellido, RUT y telefono para continuar.");
@@ -200,7 +258,11 @@ export default function FormularioReservaProfesional() {
         id_profesional
     ) {
         try {
-            const rutNormalizado = normalizarRut(rut);
+            const rutNormalizado = obtenerRutNormalizadoValido(rut);
+
+            if (!rutNormalizado) {
+                return;
+            }
 
             if (!API) {
                 return toast.error("No se encontro la configuracion de pagos. Intente nuevamente mas tarde.");
@@ -308,7 +370,11 @@ export default function FormularioReservaProfesional() {
         id_profesional
     ){
         try {
-            const rutNormalizado = normalizarRut(rut);
+            const rutNormalizado = obtenerRutNormalizadoValido(rut);
+
+            if (!rutNormalizado) {
+                return false;
+            }
 
             if (!nombrePaciente || !apellidoPaciente || !rutNormalizado || !telefono || !email || !fechaInicio || !horaInicio || !horaFinalizacion || !id_profesional) {
                 toast.error('Debe llenar todos los campos');
@@ -457,11 +523,20 @@ export default function FormularioReservaProfesional() {
                                 <ShadcnInput
                                     value={rut}
                                     onChange={(e) => {
-                                        const value = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
-                                        setRut(value);
+                                        setRut(limpiarRutInput(e.target.value));
+                                    }}
+                                    onBlur={() => {
+                                        const rutLimpio = limpiarRutInput(rut);
+                                        setRut(rutLimpio);
+
+                                        if (rutLimpio && !esRutValido(rutLimpio)) {
+                                            toast.error("El RUT ingresado no es valido.");
+                                        }
                                     }}
                                     placeholder="12345678K (Sin puntos ni guion)"
                                     className="w-full"
+                                    maxLength={9}
+                                    autoCapitalize="characters"
                                 />
                             </div>
                             <div>
