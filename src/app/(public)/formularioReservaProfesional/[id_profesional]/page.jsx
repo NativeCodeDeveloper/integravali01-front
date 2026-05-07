@@ -91,6 +91,98 @@ export default function FormularioReservaProfesional() {
         seleccionarProfesionalDatos(id_profesional)
     }, [id_profesional]);
 
+    function normalizarRut(valor = "") {
+        return String(valor).replace(/[^0-9kK]/g, "").toUpperCase();
+    }
+
+    function crearFechaReserva(fecha, hora) {
+        return new Date(`${fecha}T${hora}`);
+    }
+
+    async function asegurarPacienteAgendamiento(nombrePaciente, apellidoPaciente, rut, telefono, email) {
+        try {
+            const nombre = (nombrePaciente ?? "").trim();
+            const apellido = (apellidoPaciente ?? "").trim();
+            const rutPaciente = (rut ?? "").trim();
+            const rutNormalizado = normalizarRut(rutPaciente);
+            const telefonoPaciente = (telefono ?? "").trim();
+            const correoPaciente = (email ?? "").trim();
+
+            if (!nombre || !apellido || !rutNormalizado || !telefonoPaciente) {
+                toast.error("Debe completar nombre, apellido, RUT y telefono para continuar.");
+                return false;
+            }
+
+            const resBusqueda = await fetch(`${API}/pacientes/contieneRut`, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                },
+                mode: "cors",
+                body: JSON.stringify({rut: rutNormalizado})
+            });
+
+            if (resBusqueda.ok) {
+                const coincidencias = await resBusqueda.json().catch(() => []);
+                const pacienteExistente = Array.isArray(coincidencias) && coincidencias.some(
+                    (paciente) => normalizarRut(paciente.rut) === rutNormalizado
+                );
+
+                if (pacienteExistente) {
+                    return true;
+                }
+            }
+
+            const res = await fetch(`${API}/pacientes/pacientesInsercion`, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                },
+                mode: "cors",
+                body: JSON.stringify({
+                    nombre,
+                    apellido,
+                    rut: rutNormalizado,
+                    nacimiento: "1900-01-01",
+                    sexo: "No especifica",
+                    prevision_id: 1,
+                    telefono: telefonoPaciente,
+                    correo: correoPaciente || null,
+                    direccion: "Por completar",
+                    pais: "Chile",
+                    observacion1: "Creado desde formulario publico",
+                    observacion2: "NO ESPECIFICADO",
+                    observacion3: "NO ESPECIFICADO",
+                    apoderado: "NO ESPECIFICADO",
+                    apoderado_rut: "NO ESPECIFICADO",
+                    medicamentosUsados: "NO ESPECIFICADO",
+                    habitos: "NO ESPECIFICADO",
+                    comentariosAdicionales: "Paciente ingresado automaticamente desde agendamiento publico"
+                })
+            });
+
+            if (!res.ok) {
+                toast.error("No se pudo registrar el paciente para continuar con el agendamiento.");
+                return false;
+            }
+
+            const respuestaBackend = await res.json().catch(() => null);
+
+            if (respuestaBackend?.message === true || respuestaBackend?.message === "duplicado") {
+                return true;
+            }
+
+            toast.error("No se pudo registrar el paciente para continuar con el agendamiento.");
+            return false;
+        } catch (error) {
+            console.error(error);
+            toast.error("Ocurrio un problema al registrar el paciente.");
+            return false;
+        }
+    }
+
 
     async function pagarMercadoPago(
         nombrePaciente,
@@ -108,16 +200,35 @@ export default function FormularioReservaProfesional() {
         id_profesional
     ) {
         try {
+            const rutNormalizado = normalizarRut(rut);
+
             if (!API) {
                 return toast.error("No se encontro la configuracion de pagos. Intente nuevamente mas tarde.");
             }
 
-            if (!nombrePaciente || !apellidoPaciente || !rut || !telefono || !email || !fechaInicio || !horaInicio || !fechaFinalizacion || !horaFin || !id_profesional) {
+            if (!nombrePaciente || !apellidoPaciente || !rutNormalizado || !telefono || !email || !fechaInicio || !horaInicio || !fechaFinalizacion || !horaFin || !id_profesional) {
                 return toast.error("Debe completar toda la informacion para realizar la reserva");
             }
 
             if (!servicioSeleccionado || Number(totalPago) <= 0) {
                 return toast.error("Debe seleccionar un servicio para continuar con el pago");
+            }
+
+            const inicioReserva = crearFechaReserva(fechaInicio, horaInicio);
+            if (inicioReserva <= new Date()) {
+                return toast.error("No es posible agendar en horarios pasados o en la hora actual.");
+            }
+
+            const pacienteDisponible = await asegurarPacienteAgendamiento(
+                nombrePaciente,
+                apellidoPaciente,
+                rutNormalizado,
+                telefono,
+                email
+            );
+
+            if (!pacienteDisponible) {
+                return;
             }
 
             setProcesandoPago(true);
@@ -136,7 +247,7 @@ export default function FormularioReservaProfesional() {
                     cantidad: 1,
                     nombrePaciente,
                     apellidoPaciente,
-                    rut,
+                    rut: rutNormalizado,
                     telefono,
                     email,
                     fechaInicio,
@@ -197,9 +308,28 @@ export default function FormularioReservaProfesional() {
         id_profesional
     ){
         try {
+            const rutNormalizado = normalizarRut(rut);
 
-            if (!nombrePaciente || !apellidoPaciente || !rut || !telefono || !email || !fechaInicio || !horaInicio || !horaFinalizacion || !id_profesional) {
+            if (!nombrePaciente || !apellidoPaciente || !rutNormalizado || !telefono || !email || !fechaInicio || !horaInicio || !horaFinalizacion || !id_profesional) {
                 toast.error('Debe llenar todos los campos');
+                return false;
+            }
+
+            const inicioReserva = crearFechaReserva(fechaInicio, horaInicio);
+            if (inicioReserva <= new Date()) {
+                toast.error("No es posible agendar en horarios pasados o en la hora actual.");
+                return false;
+            }
+
+            const pacienteDisponible = await asegurarPacienteAgendamiento(
+                nombrePaciente,
+                apellidoPaciente,
+                rutNormalizado,
+                telefono,
+                email
+            );
+
+            if (!pacienteDisponible) {
                 return false;
             }
 
@@ -210,7 +340,7 @@ export default function FormularioReservaProfesional() {
                 body: JSON.stringify({
                     nombrePaciente,
                     apellidoPaciente,
-                    rut,
+                    rut: rutNormalizado,
                     telefono,
                     email,
                     fechaInicio,
