@@ -131,7 +131,7 @@ function ReservaHoraContent() {
               </a>
 
               <a
-                href="/"
+                href="https://integravali.cl"
                 className="text-sm font-semibold text-slate-700 hover:text-slate-900"
               >
                 Volver al inicio
