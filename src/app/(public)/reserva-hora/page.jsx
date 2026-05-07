@@ -41,7 +41,7 @@ function ReservaHoraContent() {
               <p className="mt-2 text-slate-700">
                 Su hora con{" "}
                 <span className="font-semibold text-slate-900">
-                  el equipo profesional de SaludB
+                  el equipo profesional de Integravali
                 </span>{" "}
                 ha sido reservada con éxito.
               </p>
