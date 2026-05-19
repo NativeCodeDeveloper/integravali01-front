@@ -6,7 +6,7 @@ function ReservaHoraContent() {
     const searchParams = useSearchParams();
     const fechaInicio = searchParams.get('fecha') || '';
     const horaInicio = searchParams.get('hora') || '';
-    const emailPaciente = searchParams.get('email') || '';
+    const servicio = searchParams.get('servicio') || 'Servicio agendado';
 
   return (
     <section className="relative min-h-[70vh] w-full px-4 py-10 flex items-center justify-center bg-white">
@@ -63,7 +63,7 @@ function ReservaHoraContent() {
                   </div>
                   <div className="flex-1">
                     <p className="text-sm font-semibold text-slate-900">Servicio</p>
-                    <p className="text-sm text-slate-600">Primera evaluacion domiciliaria</p>
+                    <p className="text-sm text-slate-600">{servicio}</p>
                   </div>
                 </div>
 
@@ -92,7 +92,7 @@ function ReservaHoraContent() {
                   </div>
                   <div className="flex-1">
                     <p className="text-sm font-semibold text-slate-900">Duración</p>
-                    <p className="text-sm text-slate-600">60 Minutos</p>
+                    <p className="text-sm text-slate-600">45 minutos</p>
                   </div>
                 </div>
 
@@ -107,7 +107,7 @@ function ReservaHoraContent() {
                   </div>
                   <div className="flex-1">
                     <p className="text-sm font-semibold text-slate-900">Ubicación</p>
-                    <p className="text-sm text-slate-600">Atencion a domicilio en Region Metropolitana</p>
+                    <p className="text-sm text-slate-600">Esmeralda 286, Piso 3 of 3A, Los Andes</p>
                   </div>
                 </div>
               </div>

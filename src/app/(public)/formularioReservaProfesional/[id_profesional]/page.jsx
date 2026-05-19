@@ -344,14 +344,15 @@ export default function FormularioReservaProfesional() {
         }
     }
 
-    function comprobanteAgendamiento() {
+    function comprobanteAgendamiento(servicio) {
         setNombrePaciente("");
         setApellidoPaciente("");
         setDescripcionProfesional("");
         setRut("");
         setTelefono("");
         setEmail("");
-        router.push(`/reserva-hora?fecha=${fechaInicio}&hora=${horaInicio}`);
+        const servicioParam = encodeURIComponent(servicio || "");
+        router.push(`/reserva-hora?fecha=${fechaInicio}&hora=${horaInicio}&servicio=${servicioParam}`);
     }
 
 
@@ -422,7 +423,7 @@ export default function FormularioReservaProfesional() {
             const respuestaBackend = await res.json();
 
             if(respuestaBackend.message === true){
-                comprobanteAgendamiento();
+                comprobanteAgendamiento(servicioSeleccionado);
                 return toast.success('Cita Agendada');
             }
         }catch (error) {
