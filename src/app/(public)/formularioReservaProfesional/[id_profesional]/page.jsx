@@ -605,7 +605,31 @@ export default function FormularioReservaProfesional() {
                             <ShadcnButton2 nombre={"RETROCEDER"} funcion={()=>volver(id_profesional)}/>
 
                         <ShadcnButton2
-                            nombre={procesandoPago ? "FINALIZANDO AGENDAMIENTO..." : "FINALIZAR AGENDAMIENTO"}
+                            nombre={"AGENDAR Y PAGAR EN CONSULTA"}
+                            funcion={(e) => {
+                                if (e?.preventDefault) e.preventDefault();
+                                if (e?.stopPropagation) e.stopPropagation();
+
+                                if (procesandoPago) return;
+
+                                return agendarSinPago(
+                                    nombrePaciente,
+                                    apellidoPaciente,
+                                    rut,
+                                    telefono,
+                                    email,
+                                    fechaInicio,
+                                    horaInicio,
+                                    fechaFinalizacion,
+                                    horaFin,
+                                    id_profesional
+                                );
+                            }}
+                            className="bg-[#5F8580] hover:bg-[#4f736f]"
+                        />
+
+                        <ShadcnButton2
+                            nombre={procesandoPago ? "FINALIZANDO AGENDAMIENTO..." : "AGENDAR Y PAGAR"}
                             funcion={(e) => {
                                 if (e?.preventDefault) e.preventDefault();
                                 if (e?.stopPropagation) e.stopPropagation();
