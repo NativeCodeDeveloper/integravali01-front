@@ -352,6 +352,15 @@ export default async function DashboardLayout({ children }) {
                             </div>
                             <div className="mt-1.5 ml-1 space-y-0.5 border-l border-white/[0.06] pl-3">
                                 <Link
+                                    href="/dashboard/accesoCuentasAnexas"
+                                    className="group/link flex items-center gap-2.5 rounded-md px-2 py-[6px] text-[12.5px] font-light text-white/50 hover:text-white/90 hover:bg-white/[0.05] transition-all duration-200"
+                                >
+                                    <svg className="h-3.5 w-3.5 text-cyan-400/70 group-hover/link:text-cyan-300 transition-colors duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a4 4 0 00-5-3.87M9 20H2v-2a4 4 0 017-2.48M16 3.13a4 4 0 010 7.75M12 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                                    </svg>
+                                    Acceso a cuentas anexas
+                                </Link>
+                                <Link
                                     href="/"
                                     className="group/link flex items-center gap-2.5 rounded-md px-2 py-[6px] text-[12.5px] font-light text-white/50 hover:text-white/90 hover:bg-white/[0.05] transition-all duration-200"
                                 >

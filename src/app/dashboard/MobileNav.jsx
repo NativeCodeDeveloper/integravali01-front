@@ -13,6 +13,7 @@ import {
   Menu,
   MonitorSmartphone,
   PanelsTopLeft,
+  Share2,
   Users,
   X,
 } from "lucide-react";
@@ -28,6 +29,7 @@ const links = [
   { label: "Carpeta del paciente", href: "/dashboard/FichaClinica", icon: FileText },
   { label: "Publicaciones", href: "/dashboard/publicaciones", icon: LayoutGrid },
   { label: "Carrusel de Portada", href: "/dashboard/portadaEdit", icon: MonitorSmartphone },
+  { label: "Acceso a cuentas anexas", href: "/dashboard/accesoCuentasAnexas", icon: Share2 },
 ];
 
 const sections = [
@@ -35,6 +37,7 @@ const sections = [
   { title: "Agenda Clínica", items: [links[1], links[2], links[3]] },
   { title: "Registros Clínicos", items: [links[4], links[5]] },
   { title: "Gestión de Contenido", items: [links[6], links[7]] },
+  { title: "Cuentas anexas", items: [links[8]] },
 ];
 
 export default function MobileNav() {
