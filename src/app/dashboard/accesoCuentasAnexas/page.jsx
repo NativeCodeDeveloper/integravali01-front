@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, Building2, ShieldCheck, Users } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Building2, Info, KeyRound, Mail, ShieldCheck, Users } from "lucide-react";
 
 const mockCuentasAnexas = [
     {
@@ -15,6 +15,20 @@ const mockCuentasAnexas = [
         dominio: "integravali05.space",
         iniciales: "KT",
         color: "from-violet-600 to-fuchsia-500",
+    },
+    {
+        nombre: "Matías Fredes Madariaga",
+        url: "https://integravali04.angendaclinica.boats/sign-in",
+        dominio: "integravali04.angendaclinica.boats",
+        iniciales: "MF",
+        color: "from-emerald-600 to-teal-500",
+    },
+    {
+        nombre: "Johane Fuentealba Díaz",
+        url: "https://integravali06.angendaclinica.xyz/dashboard",
+        dominio: "integravali06.angendaclinica.xyz",
+        iniciales: "JF",
+        color: "from-amber-500 to-orange-600",
     },
 ];
 
@@ -60,8 +74,37 @@ export default function AccesoCuentasAnexasPage() {
                         </div>
                     </div>
 
-                    <div className="grid gap-5 p-6 sm:grid-cols-2 sm:p-9">
-                        {mockCuentasAnexas.map((cuenta) => (
+                    <div className="p-6 sm:p-9">
+                        <div className="mb-6 flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-4 text-amber-950">
+                            <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-700">
+                                <Info className="h-4 w-4" />
+                            </span>
+                            <div className="min-w-0 flex-1">
+                                <p className="text-sm font-bold">Inicio de sesión requerido</p>
+                                <p className="mt-1 text-sm leading-6 text-amber-800">
+                                    Puedes ingresar a todas las cuentas IntegraVali utilizando el siguiente usuario administrador:
+                                </p>
+                                <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                                    <div className="flex min-w-0 items-center gap-2 rounded-xl border border-amber-200 bg-white/80 px-3 py-2.5">
+                                        <Mail className="h-4 w-4 shrink-0 text-amber-700" />
+                                        <div className="min-w-0">
+                                            <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-amber-700">Usuario</p>
+                                            <p className="truncate text-sm font-semibold text-slate-900">ariela@agenda.cl</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex min-w-0 items-center gap-2 rounded-xl border border-amber-200 bg-white/80 px-3 py-2.5">
+                                        <KeyRound className="h-4 w-4 shrink-0 text-amber-700" />
+                                        <div className="min-w-0">
+                                            <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-amber-700">Contraseña</p>
+                                            <p className="break-all text-sm font-semibold text-slate-900">Ariela-agenda-123123</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="grid gap-5 sm:grid-cols-2">
+                            {mockCuentasAnexas.map((cuenta) => (
                             <a
                                 key={cuenta.url}
                                 href={cuenta.url}
@@ -93,7 +136,8 @@ export default function AccesoCuentasAnexasPage() {
                                     <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                                 </div>
                             </a>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 </section>
             </div>
